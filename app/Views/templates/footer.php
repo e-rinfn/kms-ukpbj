@@ -157,45 +157,17 @@
         });
 
         // Fungsi untuk mengirim pesan
-        // function sendMessageToBot() {
-        //     const message = userInput.value.trim();
-        //     if (message === '') return;
-
-        //     // Tambahkan pesan pengguna ke chat
-        //     addMessage(message, 'user');
-        //     userInput.value = '';
-
-        //     // Kirim pesan ke backend Flask
-        //     fetch('http://localhost:5000/predict', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: JSON.stringify({
-        //                 message: message
-        //             })
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             // Tambahkan respon bot ke chat
-        //             addMessage(data.answer, 'bot');
-        //         })
-        //         .catch(error => {
-        //             console.error('Error:', error);
-        //             addMessage('Maaf, terjadi kesalahan. Silakan coba lagi.', 'bot');
-        //         });
-        // }
-
         function sendMessageToBot() {
             const message = userInput.value.trim();
             if (message === '') return;
 
+            // Tambahkan pesan pengguna ke chat
             addMessage(message, 'user');
             userInput.value = '';
 
-            console.log('Sending message:', message); // Debug log
-
-            fetch('/predict', {
+            // Kirim pesan ke backend Flask
+            // fetch('http://localhost:5000/predict', {
+            fetch('https://chat-kms.erinfn.my.id/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -204,19 +176,13 @@
                         message: message
                     })
                 })
-                .then(response => {
-                    console.log('Response status:', response.status); // Debug log
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    console.log('Bot response:', data); // Debug log
+                    // Tambahkan respon bot ke chat
                     addMessage(data.answer, 'bot');
                 })
                 .catch(error => {
-                    console.error('Error details:', error);
+                    console.error('Error:', error);
                     addMessage('Maaf, terjadi kesalahan. Silakan coba lagi.', 'bot');
                 });
         }
