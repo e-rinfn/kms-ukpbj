@@ -43,6 +43,21 @@
                 <textarea name="caption" id="caption" class="form-control" rows="20" placeholder="Tulis caption di sini..."></textarea>
             </div>
 
+            <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+
+            <script>
+                ClassicEditor
+                    .create(document.querySelector('#caption'), {
+                        toolbar: [
+                            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'
+                        ],
+                        height: '500px' // Atur tinggi editor
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            </script>
+
             <!-- Akses Publik -->
             <div class="form-check mb-3">
                 <input type="checkbox" name="akses_publik" id="akses_publik" value="1" class="form-check-input">

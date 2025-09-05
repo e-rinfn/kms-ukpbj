@@ -46,9 +46,24 @@
             </div>
             <!-- Caption -->
             <div class="mb-3">
-                <label for="caption" class="form-label fw-bold">Caption</label>
+                <label for="caption" class="form-label fw-bold">Deskripsi</label>
                 <textarea name="caption" id="caption" rows="20" class="form-control" placeholder="Tulis caption di sini..."></textarea>
             </div>
+
+            <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+
+            <script>
+                ClassicEditor
+                    .create(document.querySelector('#caption'), {
+                        toolbar: [
+                            'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo'
+                        ],
+                        height: '500px' // Atur tinggi editor
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            </script>
 
             <!-- Akses Publik -->
             <div class="form-check mb-3">

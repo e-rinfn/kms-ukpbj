@@ -34,19 +34,23 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                     </div>
                 </div>
 
-                <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
-                <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
-                <p><strong>Dibuat pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['created_at'])); ?></p>
-                <p><strong>Diupdate pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['updated_at'])); ?></p>
-
-                <div class="mt-4">
-                    <h3 class="h6">Caption:</h3>
-                    <p><?= nl2br(esc($pelatihan['caption_pelatihan'])); ?></p>
+                <div class="text-end mt-2">
+                    <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
+                    <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
                 </div>
+
+
+                <div class="my-3">
+                    <p><?= $pelatihan['caption_pelatihan']; ?></p>
+                </div>
+                <hr>
+                <p><strong>Dibuat pada:</strong> <?= tanggal_indo($pelatihan['created_at']); ?></p>
+                <p><strong>Diupdate pada:</strong> <?= tanggal_indo($pelatihan['updated_at']); ?></p>
+
             </div>
 
             <div class="col-md-4 mb-3 ms-3 border bg-light rounded p-2">
-                <h5 class="text-center mt-1">Daftar Pelatihan</h5>
+                <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
                 <hr>
                 <div class="p-3" style="height: 800px; overflow-y: auto;">
                     <div class="row g-4">
@@ -87,22 +91,9 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             </div>
         </div>
+        <hr>
         <div class="mt-4">
-            <?php if ($isLoggedIn && $user_id): ?>
-                <form action="<?= base_url('pelatihan/comment/' . $pelatihan['id']); ?>" method="POST">
-                    <?= csrf_field() ?>
-                    <div class="mb-3">
-                        <textarea name="komentar" class="form-control" rows="3" placeholder="Tulis komentar..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim</button>
-                </form>
-            <?php else: ?>
-                <div class="alert alert-info">
-                    Silakan <a href="<?= base_url('login') ?>">login</a> untuk memberikan komentar.
-                </div>
-            <?php endif; ?>
-
-            <hr>
+            <h5 class="mb-3 text-center">KOMENTAR</h5>
 
             <?php if (!empty($komentar)): ?>
                 <?php
@@ -142,6 +133,22 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
             <?php else: ?>
                 <div class="alert alert-warning">
                     Belum ada komentar untuk pelatihan ini.
+                </div>
+            <?php endif; ?>
+
+            <?php if ($isLoggedIn && $user_id): ?>
+                <form action="<?= base_url('pelatihan/comment/' . $pelatihan['id']); ?>" method="POST">
+                    <?= csrf_field() ?>
+                    <div class="mb-3">
+                        <textarea name="komentar" class="form-control" rows="5" placeholder="Tulis komentar..." required></textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill">Kirim Komentar</button>
+                    </div>
+                </form>
+            <?php else: ?>
+                <div class="alert alert-info">
+                    Silakan <a href="<?= base_url('login') ?>">login</a> untuk memberikan komentar.
                 </div>
             <?php endif; ?>
         </div>

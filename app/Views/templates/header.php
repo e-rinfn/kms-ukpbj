@@ -106,10 +106,10 @@
 
                 <?php if (session()->get('level') === 'pegawai') : ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'pegawai/pengetahuan' ? 'nav-link active' : '' ?>" href="/pegawai/pengetahuan">Pegawai Pengetahuan</a>
+                        <a class="nav-link <?= uri_string() === 'pegawai/pengetahuan' ? 'nav-link active' : '' ?>" href="/pegawai/pengetahuan">PENGETAHUAN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'pegawai/pelatihan' ? 'nav-link active' : '' ?>" href="/pegawai/pelatihan">Pegawai Pelatihan</a>
+                        <a class="nav-link <?= uri_string() === 'pegawai/pelatihan' ? 'nav-link active' : '' ?>" href="/pegawai/pelatihan">PELATIHAN</a>
                     </li>
                 <?php endif; ?>
 
