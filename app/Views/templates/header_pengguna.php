@@ -76,7 +76,7 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?= uri_string() === '' ? 'nav-link active' : '' ?>" href="/">HOME</a>
+                    <a class="nav-link <?= uri_string() === '' ? 'nav-link active' : '' ?>" href="/">BERANDA</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= uri_string() === 'pengetahuan' ? 'nav-link active' : '' ?>" href="/pengetahuan">PENGETAHUAN</a>

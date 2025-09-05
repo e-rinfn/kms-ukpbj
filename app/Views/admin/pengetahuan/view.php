@@ -156,7 +156,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                     </div>
 
                     <div class="my-3">
-                        <p style="text-align: justify;"><?= esc($pengetahuan['caption_pengetahuan']); ?></p>
+                        <p><?= $pengetahuan['caption_pengetahuan']; ?></p>
                     </div>
                     <hr>
                     <ul class="list-unstyled">

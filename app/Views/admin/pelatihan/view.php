@@ -34,19 +34,23 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                     </div>
                 </div>
 
-                <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
-                <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
-                <p><strong>Dibuat pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['created_at'])); ?></p>
-                <p><strong>Diupdate pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['updated_at'])); ?></p>
-
-                <div class="mt-4">
-                    <h3 class="h6">Caption:</h3>
-                    <p><?= nl2br(esc($pelatihan['caption_pelatihan'])); ?></p>
+                <div class="text-end mt-2">
+                    <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
+                    <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
                 </div>
+
+
+                <div class="my-3">
+                    <p><?= $pelatihan['caption_pelatihan']; ?></p>
+                </div>
+                <hr>
+                <p><strong>Dibuat pada:</strong> <?= tanggal_indo($pelatihan['created_at']); ?></p>
+                <p><strong>Diupdate pada:</strong> <?= tanggal_indo($pelatihan['updated_at']); ?></p>
+
             </div>
 
             <div class="col-md-4 mb-3 ms-3 border bg-light rounded p-2">
-                <h5 class="text-center mt-1">Daftar Pelatihan</h5>
+                <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
                 <hr>
                 <div class="p-3" style="height: 800px; overflow-y: auto;">
                     <div class="row g-4">
@@ -87,6 +91,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             </div>
         </div>
+        <hr>
         <div class="mt-4">
             <?php if ($isLoggedIn && $user_id): ?>
                 <form action="<?= base_url('pelatihan/comment/' . $pelatihan['id']); ?>" method="POST">
