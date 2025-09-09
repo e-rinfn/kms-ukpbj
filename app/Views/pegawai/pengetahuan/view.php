@@ -150,14 +150,15 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 
 
 
-                    <!-- Informasi Dokumen -->
                     <div class="text-end mt-2">
-                        <strong>Di Posting Oleh:</strong> <?= esc($pengetahuan['user_nama']); ?>
+                        <p><strong>Dibuat oleh:</strong> <?= esc($pengetahuan['user_nama']); ?></p>
+                        <p><strong>Akses Publik:</strong> <?= $pengetahuan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
                     </div>
 
                     <div class="my-3">
-                        <p style="text-align: justify;"><?= esc($pengetahuan['caption_pengetahuan']); ?></p>
+                        <p><?= $pengetahuan['caption_pengetahuan']; ?></p>
                     </div>
+
                     <hr>
                     <ul class="list-unstyled">
                         <li>
@@ -203,7 +204,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                                 <p class="card-text">
                                                     <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                                 </p>
-                                                <a href="<?= base_url('pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
+                                                <a href="<?= base_url('pegawai/pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
                                             </div>
                                         </div>
                                     </div>

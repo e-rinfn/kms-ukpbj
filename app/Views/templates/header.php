@@ -65,7 +65,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/beranda">
             <img src="/assets/img/logo.png" alt="Logo" width="200" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
@@ -97,10 +97,10 @@
 
                 <?php if (session()->get('level') === 'user') : ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'users/pengetahuan' ? 'nav-link active' : '' ?>" href="/users/pengetahuan">User Pengetahuan</a>
+                        <a class="nav-link <?= uri_string() === 'users/pengetahuan' ? 'nav-link active' : '' ?>" href="/users/pengetahuan">PENGETAHUAN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">User Pelatihan</a>
+                        <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">PELATIHAN</a>
                     </li>
                 <?php endif; ?>
 

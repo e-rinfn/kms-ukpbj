@@ -93,7 +93,12 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 
         <!-- Kolom PDF Viewer -->
         <div class="col-md-8">
-            <h2 class="h5"><?= esc($pengetahuan['judul']); ?></h2>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <h2 class="mb-0"><?= esc($pengetahuan['judul']); ?></h2>
+                <a href="/pengetahuan" style="background-color: #EC1928;" class="btn btn-danger rounded-pill fw-bold">
+                    <i class="bi bi-arrow-left"></i> Kembali Ke Daftar
+                </a>
+            </div>
             <?php
             $pdfPath = WRITEPATH . '../public/assets/uploads/pengetahuan/' . $pengetahuan['file_pdf_pengetahuan'];
             $pdfUrl = base_url('assets/uploads/pengetahuan/' . $pengetahuan['file_pdf_pengetahuan']);
@@ -110,11 +115,11 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                         style="border: 1px solid #ddd;">
 
                     <!-- PDF Actions -->
-                    <div class="text-center mt-2">
+                    <div class="text-end mt-2">
                         <a href="<?= $pdfUrl ?>"
                             class="btn btn-sm btn-outline-primary"
                             target="_blank">
-                            <i class="bi bi-eye"></i> Buka PDF di Tab Baru
+                            <i class="bi bi-eye"></i> Buka PDF
                         </a>
                         <!-- <button onclick="showIframe()" class="btn btn-sm btn-outline-secondary">
                                 <i class="bi bi-eye"></i> Tampilkan PDF Alternatif
@@ -148,19 +153,25 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
             </div>
 
             <div class="my-3">
-                <p style="text-align: justify;"><?= esc($pengetahuan['caption_pengetahuan']); ?></p>
+                <p><?= $pengetahuan['caption_pengetahuan']; ?></p>
             </div>
             <hr>
             <ul class="list-unstyled">
-                <li><strong>Dibuat pada:</strong> <?= $pengetahuan['created_at']; ?></li>
-                <li><strong>Diupdate pada:</strong> <?= $pengetahuan['updated_at']; ?></li>
+                <li>
+                    <strong>Dibuat pada:</strong>
+                    <?= tanggal_indo($pengetahuan['created_at']); ?>
+                </li>
+                <li>
+                    <strong>Diupdate pada:</strong>
+                    <?= tanggal_indo($pengetahuan['updated_at']); ?>
+                </li>
             </ul>
         </div>
 
         <div class="col-md-4 border bg-light rounded p-2">
             <h5 class="text-center mt-1" style="margin-left: 1rem;">Daftar Pengetahuan</h5>
             <hr>
-            <div class="p-3" style="height: 800px; overflow-y: auto;">
+            <div class="p-3" style="height: 1500px; overflow-y: auto;">
                 <div class="row g-4">
                     <?php foreach ($pengetahuan_lain as $p): ?>
                         <div class="col-12">
@@ -180,8 +191,8 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                     <hr>
-                                    <p class="card-text text-justify">
-                                        <?= esc(strlen($p['caption_pengetahuan']) > 150 ? substr($p['caption_pengetahuan'], 0, 150) . '...' : $p['caption_pengetahuan']); ?>
+                                    <p class="card-text" style="text-align: justify;">
+                                        <?= mb_strimwidth(strip_tags($p['caption_pengetahuan']), 0, 200, '...'); ?>
                                     </p>
 
                                     <div class="mt-auto">

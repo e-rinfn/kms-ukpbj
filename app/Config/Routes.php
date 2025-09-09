@@ -8,17 +8,16 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('beranda', 'Beranda::index');
 
-
-// Tambahkan route berikut:
+// Auth routes
 $routes->get('login', 'Auth::login');
 $routes->get('register', 'Auth::register');
 $routes->post('auth/login', 'Auth::attemptLogin');
 $routes->get('logout', 'Auth::logout');
 
+// Public routes
 $routes->get('pengetahuan', 'Pengetahuan::index');
 $routes->get('pengetahuan/view/(:num)', 'Pengetahuan::view/$1');
 $routes->post('pengetahuan/ask-pdf', 'Pengetahuan::askPdf');
-
 
 $routes->get('pelatihan', 'Pelatihan::index');
 $routes->get('pelatihan/view/(:num)', 'Pelatihan::view/$1');
@@ -28,7 +27,6 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
     $routes->post('rag/query', 'Rag::query');
 });
 
-$routes->post('admin/pengetahuan/process/(:num)', 'Admin\Pengetahuan::processPdf/$1');
 $routes->post('pengetahuan/ask-pdf', 'Pengetahuan::askPdf');
 $routes->post('pengetahuan/ask', 'Pengetahuan::ask');
 $routes->get('pengetahuan/get_pdf_for_chat/(:num)', 'Pengetahuan::get_pdf_for_chat/$1');
@@ -47,13 +45,15 @@ $routes->get('sukses', 'Pengajuan::sukses');
 
 $routes->post('pdfchat/chat/(:num)', 'PdfChatController::chat/$1');
 
-$routes->group('admin', ['filter' => 'auth'], function ($routes) {
-
+// Admin routes - hanya bisa diakses oleh admin
+$routes->group('admin', ['filter' => 'level:admin'], function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::dashboard');
 
     $routes->get('pengajuan', 'Pengajuan::daftarPengajuan');
     $routes->get('pengajuan/approve/(:num)', 'Pengajuan::approve/$1');
     $routes->get('pengajuan/delete/(:num)', 'Pengajuan::delete/$1');
+
+    $routes->post('pengetahuan/process/(:num)', 'Admin\Pengetahuan::processPdf/$1');
 
     $routes->group('user', function ($routes) {
         $routes->get('/', 'Admin\User::index');
@@ -64,7 +64,6 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
         $routes->post('update/(:num)', 'Admin\User::update/$1');
         $routes->delete('delete/(:num)', 'Admin\User::delete/$1');
     });
-
 
     $routes->group('pelatihan', function ($routes) {
         $routes->get('/', 'Admin\Pelatihan::index');
@@ -87,7 +86,10 @@ $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     });
 });
 
-$routes->group('pegawai', ['filter' => 'auth'], function ($routes) {
+// Pegawai routes - hanya bisa diakses oleh pegawai
+$routes->group('pegawai', ['filter' => 'level:pegawai'], function ($routes) {
+    $routes->get('dashboard', 'Pegawai\Dashboard::index'); // Tambahkan dashboard pegawai
+
     $routes->group('pelatihan', function ($routes) {
         $routes->get('/', 'Pegawai\Pelatihan::index');
         $routes->get('create', 'Pegawai\Pelatihan::create');
@@ -109,8 +111,10 @@ $routes->group('pegawai', ['filter' => 'auth'], function ($routes) {
     });
 });
 
+// User routes - hanya bisa diakses oleh user biasa
+$routes->group('users', ['filter' => 'level:user'], function ($routes) {
+    $routes->get('dashboard', 'Users\Dashboard::index'); // Tambahkan dashboard user
 
-$routes->group('users', ['filter' => 'auth'], function ($routes) {
     $routes->group('pelatihan', function ($routes) {
         $routes->get('/', 'Users\Pelatihan::index');
         $routes->get('create', 'Users\Pelatihan::create');
@@ -132,7 +136,7 @@ $routes->group('users', ['filter' => 'auth'], function ($routes) {
     });
 });
 
-
+// Chatbot - bisa diakses oleh semua level yang login
 $routes->get('chatbot', 'Chatbot::index', ['filter' => 'auth']);
 $routes->post('chatbot/process', 'Chatbot::process', ['filter' => 'auth']);
 $routes->post('komentar/pengetahuan', 'Chatbot::addKomentarPengetahuan', ['filter' => 'auth']);

@@ -152,7 +152,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <span class="badge bg-<?= $p['akses_publik'] ? 'success' : 'warning' ?>">
+                                    <span class="badge bg-<?= $p['akses_publik'] ? 'success' : 'secondary' ?>">
                                         <?= $p['akses_publik'] ? 'Publik' : 'Tidak' ?>
                                     </span>
                                 </td>

@@ -203,7 +203,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                                 <p class="card-text">
                                                     <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                                 </p>
-                                                <a href="<?= base_url('pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
+                                                <a href="<?= base_url('admin/pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
                                             </div>
                                         </div>
                                     </div>

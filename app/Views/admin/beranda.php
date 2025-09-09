@@ -132,9 +132,7 @@
                         <i class="fas fa-book text-danger me-2"></i>
                         <h6 class="m-0 fw-bold text-danger">Pengetahuan Terbaru</h6>
                     </div>
-                    <a href="/admin/pengetahuan" class="btn btn-sm btn-outline-danger rounded-pill px-3">
-                        <i class="fas fa-arrow-right me-1"></i> Lihat Semua
-                    </a>
+
                 </div>
 
                 <div class="card-body">
@@ -178,9 +176,7 @@
                         <i class="fas fa-book text-primary me-2"></i>
                         <h6 class="m-0 fw-bold text-primary">Pelatihan Terbaru</h6>
                     </div>
-                    <a href="/admin/pelatihan" class="btn btn-sm btn-outline-primary rounded-pill px-3">
-                        <i class="fas fa-arrow-right me-1"></i> Lihat Semua
-                    </a>
+
                 </div>
 
                 <div class="card-body">

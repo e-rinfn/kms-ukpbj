@@ -11,8 +11,13 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 <div class="container my-4">
     <div class="container row mt-3">
         <div class="col-md-8">
-            <h2 class="h5 mb-3"><?= esc($pelatihan['judul']); ?></h2>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
 
+                <h2 class="mb-0"><?= esc($pelatihan['judul']); ?></h2>
+                <a href="/pelatihan" class="btn btn-danger rounded-pill">
+                    <i class="bi bi-arrow-left"></i> Kembali Ke Daftar
+                </a>
+            </div>
             <!-- Video Responsive -->
             <div class="mb-4">
 
@@ -28,19 +33,22 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             </div>
 
-            <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
-            <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
-            <p><strong>Dibuat pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['created_at'])); ?></p>
-            <p><strong>Diupdate pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['updated_at'])); ?></p>
-
-            <div class="mt-4">
-                <h3 class="h6">Caption:</h3>
-                <p><?= nl2br(esc($pelatihan['caption_pelatihan'])); ?></p>
+            <div class="text-end mt-2">
+                <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
             </div>
+
+
+            <div class="my-3">
+                <p><?= $pelatihan['caption_pelatihan']; ?></p>
+            </div>
+            <hr>
+            <p><strong>Dibuat pada:</strong> <?= tanggal_indo($pelatihan['created_at']); ?></p>
+            <p><strong>Diupdate pada:</strong> <?= tanggal_indo($pelatihan['updated_at']); ?></p>
+
         </div>
 
         <div class="col-md-4 border bg-light rounded p-2">
-            <h5 class="text-center mt-1" style="margin-left: 1rem;">Daftar Pelatihan</h5>
+            <h5 class="text-center mt-1" style="margin-left: 1rem;">DAFTAR PELATIHAN</h5>
             <hr>
             <div class="p-3" style="height: 800px; overflow-y: auto;">
                 <div class="row g-4">
@@ -63,7 +71,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                     <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                     <hr>
                                     <p class="card-text text-justify">
-                                        <?= esc(strlen($p['caption_pelatihan']) > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']); ?>
+                                        <?= $p['caption_pelatihan'] > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']; ?>
                                     </p>
 
                                     <div class="mt-auto">

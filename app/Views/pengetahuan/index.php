@@ -106,7 +106,7 @@
                                     <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                     <hr>
                                     <p class="card-text" style="text-align: justify;">
-                                        <?= esc(strlen($p['caption_pengetahuan']) > 200 ? substr($p['caption_pengetahuan'], 0, 200) . '...' : $p['caption_pengetahuan']); ?>
+                                        <?= mb_strimwidth(strip_tags($p['caption_pengetahuan']), 0, 200, '...'); ?>
                                     </p>
                                     <!-- Spacer untuk mendorong tombol ke bawah -->
                                     <div class="mt-auto">
@@ -177,11 +177,11 @@
         </ul>
     </nav>
 
-    <div class="text-center text-muted small mt-2">
+    <!-- <div class="text-center text-muted small mt-2">
         Menampilkan <?= ($current - 1) * $pager->getPerPage() + 1 ?>
         sampai <?= min($current * $pager->getPerPage(), $pager->getTotal()) ?>
         dari <?= $pager->getTotal() ?> data
-    </div>
+    </div> -->
 
     <section class="my-3 py-4 px-0" style="background-color: #EC1928;">
         <div class="container">

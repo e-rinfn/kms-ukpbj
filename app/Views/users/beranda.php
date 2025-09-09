@@ -15,7 +15,7 @@
                     <!-- Konten -->
                     <div class="position-relative" style="z-index:1;">
                         <h1 class="fw-bold mb-3 text-dark">
-                            Selamat Datang, <span class="text-muted"><?= session()->get('nama') ?? 'Admin' ?></span>
+                            Selamat Datang, <span class="text-muted"><?= session()->get('nama') ?? 'Pengguna' ?></span>
                         </h1>
                         <p class="lead text-muted mb-0">
                             Sistem Manajemen <span class="fw-semibold text-danger">Pengetahuan</span> &
@@ -132,7 +132,7 @@
                         <i class="fas fa-book text-danger me-2"></i>
                         <h6 class="m-0 fw-bold text-danger">Pengetahuan Terbaru</h6>
                     </div>
-                    <a href="/admin/pengetahuan" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                    <a href="/users/pengetahuan" class="btn btn-sm btn-outline-danger rounded-pill px-3">
                         <i class="fas fa-arrow-right me-1"></i> Lihat Semua
                     </a>
                 </div>
@@ -178,7 +178,7 @@
                         <i class="fas fa-book text-primary me-2"></i>
                         <h6 class="m-0 fw-bold text-primary">Pelatihan Terbaru</h6>
                     </div>
-                    <a href="/admin/pelatihan" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    <a href="/users/pelatihan" class="btn btn-sm btn-outline-primary rounded-pill px-3">
                         <i class="fas fa-arrow-right me-1"></i> Lihat Semua
                     </a>
                 </div>

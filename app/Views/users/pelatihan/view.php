@@ -10,12 +10,12 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 
 <div class="container my-4">
     <div class="card-body">
-        <div class="container d-flex flex-row mt-3">
+        <div class="container row mt-3">
             <div class="col-md-8">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
 
                     <h2 class="mb-0"><?= esc($pelatihan['judul']); ?></h2>
-                    <a href="/admin/pelatihan" class="btn btn-danger rounded-pill">
+                    <a href="/users/pelatihan" class="btn btn-danger rounded-pill">
                         <i class="bi bi-arrow-left"></i> Kembali Ke Daftar
                     </a>
                 </div>
@@ -34,32 +34,36 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                     </div>
                 </div>
 
-                <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
-                <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
-                <p><strong>Dibuat pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['created_at'])); ?></p>
-                <p><strong>Diupdate pada:</strong> <?= date('d M Y H:i', strtotime($pelatihan['updated_at'])); ?></p>
+                <div class="text-end mt-2">
+                    <p><strong>Dibuat oleh:</strong> <?= esc($pelatihan['user_nama']); ?></p>
+                    <p><strong>Akses Publik:</strong> <?= $pelatihan['akses_publik'] ? 'Ya' : 'Tidak'; ?></p>
+                </div>
 
                 <div class="mt-4">
-                    <h3 class="h6">Caption:</h3>
-                    <p><?= nl2br(esc($pelatihan['caption_pelatihan'])); ?></p>
+                    <p><?= $pelatihan['caption_pelatihan']; ?></p>
                 </div>
             </div>
 
             <div class="col-md-4 mb-3 ms-3 border bg-light rounded p-2">
-                <h5 class="text-center mt-1">Daftar Pelatihan</h5>
+                <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
                 <hr>
                 <div class="p-3" style="height: 800px; overflow-y: auto;">
                     <div class="row g-4">
                         <?php foreach ($pelatihan_lain as $p): ?>
                             <div class="col-12">
                                 <div class="card h-100">
-                                    <?php if (!empty($p['thumbnail_pelatihan'])): ?>
-                                        <img src="<?= base_url('/assets/uploads/pelatihan/' . $p['thumbnail_pelatihan']); ?>"
-                                            class="card-img-top bg-light p-1 border"
-                                            alt="<?= esc($p['judul']); ?>"
-                                            style="height: 200px; object-fit: contain;">
-                                    <?php else: ?>
-                                        <img src="<?= base_url('/assets/img/default-thumbnail.png'); ?>"
+                                    <?php if (!empty($p['video_pelatihan'])) : ?>
+                                        <video class="card-img-top"
+                                            style="height: 200px; object-fit: contain;"
+                                            autoplay
+                                            muted
+                                            loop
+                                            playsinline>
+                                            <source src="/assets/uploads/pelatihan/<?= $p['video_pelatihan']; ?>" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    <?php else : ?>
+                                        <img src="/assets/img/default-thumbnail.png"
                                             class="card-img-top bg-light p-1 border"
                                             alt="Default Thumbnail"
                                             style="height: 200px; object-fit: contain;">
@@ -68,8 +72,8 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                         <hr>
-                                        <p class="card-text text-justify">
-                                            <?= esc(strlen($p['caption_pelatihan']) > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']); ?>
+                                        <p class="card-text">
+                                            <?= $p['caption_pelatihan'] > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']; ?>
                                         </p>
 
                                         <div class="mt-auto">

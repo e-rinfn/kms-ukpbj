@@ -65,7 +65,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/beranda">
             <img src="/assets/img/logo.png" alt="Logo" width="200" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
@@ -76,7 +76,7 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?= uri_string() === '' ? 'nav-link active' : '' ?>" href="/">BERANDA</a>
+                    <a class="nav-link <?= uri_string() === '' ? 'nav-link active' : '' ?>" href="/beranda">BERANDA</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= uri_string() === 'pengetahuan' ? 'nav-link active' : '' ?>" href="/pengetahuan">PENGETAHUAN</a>

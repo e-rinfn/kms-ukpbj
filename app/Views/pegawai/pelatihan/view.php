@@ -43,6 +43,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 <div class="my-3">
                     <p><?= $pelatihan['caption_pelatihan']; ?></p>
                 </div>
+
                 <hr>
                 <p><strong>Dibuat pada:</strong> <?= tanggal_indo($pelatihan['created_at']); ?></p>
                 <p><strong>Diupdate pada:</strong> <?= tanggal_indo($pelatihan['updated_at']); ?></p>

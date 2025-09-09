@@ -85,45 +85,47 @@
 
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <?php foreach ($pengetahuan as $p): ?>
-                    <?php if ($p['akses_publik']): // Tampilkan hanya jika akses_publik bernilai true 
-                    ?>
-                        <div class="col">
-                            <div class="card h-100" style="min-width: 20rem; min-height: 650px;">
-                                <!-- Thumbnail -->
-                                <?php if (!empty($p['thumbnail_pengetahuan'])): ?>
-                                    <img src="<?= ('/assets/uploads/pengetahuan/' . $p['thumbnail_pengetahuan']); ?>"
-                                        class="card-img-top bg-light p-1 border"
-                                        alt="<?= esc($p['judul']); ?>"
-                                        style="height: 200px; object-fit: contain;">
-                                <?php else: ?>
-                                    <img src="<?= ('/assets/img/default-thumbnail.png'); ?>"
-                                        class="card-img-top bg-light p-1 border"
-                                        alt="Default Thumbnail"
-                                        style="height: 200px; object-fit: contain;">
-                                <?php endif; ?>
+                    <div class="col">
+                        <div class="card h-100" style="min-width: 20rem; min-height: 650px;">
+                            <!-- Thumbnail -->
+                            <?php if (!empty($p['thumbnail_pengetahuan'])): ?>
+                                <img src="<?= ('/assets/uploads/pengetahuan/' . $p['thumbnail_pengetahuan']); ?>"
+                                    class="card-img-top bg-light p-1 border"
+                                    alt="<?= esc($p['judul']); ?>"
+                                    style="height: 200px; object-fit: contain;">
+                            <?php else: ?>
+                                <img src="<?= ('/assets/img/default-thumbnail.png'); ?>"
+                                    class="card-img-top bg-light p-1 border"
+                                    alt="Default Thumbnail"
+                                    style="height: 200px; object-fit: contain;">
+                            <?php endif; ?>
 
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title"><?= esc($p['judul']); ?></h5>
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><?= esc($p['judul']); ?></h5>
+                                <hr>
+                                <p class="card-text" style="text-align: justify;">
+                                    <?= mb_strimwidth(strip_tags($p['caption_pengetahuan']), 0, 200, '...'); ?>
+                                </p>
+                                <!-- Spacer untuk mendorong tombol ke bawah -->
+                                <div class="mt-auto">
                                     <hr>
-                                    <p class="card-text" style="text-align: justify;">
-                                        <?= esc(strlen($p['caption_pengetahuan']) > 200 ? substr($p['caption_pengetahuan'], 0, 200) . '...' : $p['caption_pengetahuan']); ?>
-                                    </p>
-                                    <!-- Spacer untuk mendorong tombol ke bawah -->
-                                    <div class="mt-auto">
-                                        <hr>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
                                         <p class="card-text">
                                             <small class="text-muted"><?= tanggal_indo($p['created_at']); ?></small>
                                         </p>
-                                        <a href="pengetahuan/view/<?= $p['id']; ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Detail</a>
+
+                                        <span class="badge bg-<?= $p['akses_publik'] ? 'success' : 'secondary'; ?>">
+                                            <?= $p['akses_publik'] ? 'Publik' : 'Tidak'; ?>
+                                        </span>
                                     </div>
+                                    <a href="pengetahuan/view/<?= $p['id']; ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Detail</a>
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
-
 
 
     </section>
