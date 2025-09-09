@@ -76,8 +76,15 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?= uri_string() === 'beranda' ? 'nav-link active' : '' ?>" href="/beranda">BERANDA</a>
+                    <?php if (session()->get('level') === 'admin' || session()->get('level') === 'pegawai' || session()->get('level') === 'user') : ?>
+                        <!-- Jika sudah login -->
+                        <a class="nav-link <?= uri_string() === 'beranda' ? 'nav-link active' : '' ?>" href="/beranda">BERANDA</a>
+                    <?php else : ?>
+                        <!-- Jika belum login -->
+                        <a class="nav-link <?= uri_string() === '/' ? 'nav-link active' : '' ?>" href="/">BERANDA</a>
+                    <?php endif; ?>
                 </li>
+
 
                 <?php if (session()->get('level') === 'admin') : ?>
                     <!-- Menu untuk Admin -->

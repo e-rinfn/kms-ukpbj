@@ -15,7 +15,7 @@
                     <!-- Konten -->
                     <div class="position-relative" style="z-index:1;">
                         <h1 class="fw-bold mb-3 text-dark">
-                            Selamat Datang, <span class="text-muted"><?= session()->get('nama') ?? 'Admin' ?></span>
+                            Selamat Datang, <span class="text-muted"><?= session()->get('nama') ?? '' ?></span>
                         </h1>
                         <p class="lead text-muted mb-0">
                             Sistem Manajemen <span class="fw-semibold text-danger">Pengetahuan</span> &
