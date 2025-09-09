@@ -80,38 +80,48 @@
                 </li>
 
                 <?php if (session()->get('level') === 'admin') : ?>
+                    <!-- Menu untuk Admin -->
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'admin/pengetahuan' ? 'nav-link active' : '' ?>" href="/admin/pengetahuan">PENGETAHUAN</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'admin/pelatihan' ? 'nav-link active' : '' ?>" href="/admin/pelatihan">PELATIHAN</a>
                     </li>
-                    <!-- Tambahkan menu Daftar Pengajuan untuk admin -->
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'admin/pengajuan' ? 'nav-link active' : '' ?>" href="/admin/pengajuan">PENGAJUAN</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'admin/user' ? 'nav-link active' : '' ?>" href="/admin/user">PENGGUNA</a>
                     </li>
-                <?php endif; ?>
 
-                <?php if (session()->get('level') === 'user') : ?>
-                    <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'users/pengetahuan' ? 'nav-link active' : '' ?>" href="/users/pengetahuan">PENGETAHUAN</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">PELATIHAN</a>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (session()->get('level') === 'pegawai') : ?>
+                <?php elseif (session()->get('level') === 'pegawai') : ?>
+                    <!-- Menu untuk Pegawai -->
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'pegawai/pengetahuan' ? 'nav-link active' : '' ?>" href="/pegawai/pengetahuan">PENGETAHUAN</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'pegawai/pelatihan' ? 'nav-link active' : '' ?>" href="/pegawai/pelatihan">PELATIHAN</a>
                     </li>
+
+                <?php elseif (session()->get('level') === 'user') : ?>
+                    <!-- Menu untuk User -->
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'users/pengetahuan' ? 'nav-link active' : '' ?>" href="/users/pengetahuan">PENGETAHUAN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">PELATIHAN</a>
+                    </li>
+
+                <?php else : ?>
+                    <!-- Menu Default (Guest / belum login) -->
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'pengetahuan' ? 'nav-link active' : '' ?>" href="/pengetahuan">PENGETAHUAN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'pelatihan' ? 'nav-link active' : '' ?>" href="/pelatihan">PELATIHAN</a>
+                    </li>
                 <?php endif; ?>
+
 
                 <?php if (session()->get('id')) : ?>
                     <li class="nav-item">
