@@ -10,7 +10,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 
 <div class="container my-4">
     <div class="card-body">
-        <div class="container d-flex flex-row mt-3">
+        <div class="container row mt-3">
             <div class="col-md-8">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
 
