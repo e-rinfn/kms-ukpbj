@@ -47,21 +47,26 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
 
         </div>
 
-        <div class="col-md-4 border bg-light rounded p-2">
-            <h5 class="text-center mt-1" style="margin-left: 1rem;">DAFTAR PELATIHAN</h5>
+        <div class="col-md-4 mb-3 border bg-light rounded p-2">
+            <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
             <hr>
-            <div class="p-3" style="height: 800px; overflow-y: auto;">
+            <div class="p-3" style="height: 1000px; overflow-y: auto;">
                 <div class="row g-4">
                     <?php foreach ($pelatihan_lain as $p): ?>
                         <div class="col-12">
                             <div class="card h-100">
-                                <?php if (!empty($p['thumbnail_pelatihan'])): ?>
-                                    <img src="<?= base_url('/assets/uploads/pelatihan/' . $p['thumbnail_pelatihan']); ?>"
-                                        class="card-img-top bg-light p-1 border"
-                                        alt="<?= esc($p['judul']); ?>"
-                                        style="height: 200px; object-fit: contain;">
-                                <?php else: ?>
-                                    <img src="<?= base_url('/assets/img/default-thumbnail.png'); ?>"
+                                <?php if (!empty($p['video_pelatihan'])) : ?>
+                                    <video class="card-img-top"
+                                        style="height: 200px; object-fit: contain;"
+                                        autoplay
+                                        muted
+                                        loop
+                                        playsinline>
+                                        <source src="/assets/uploads/pelatihan/<?= $p['video_pelatihan']; ?>" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                <?php else : ?>
+                                    <img src="/assets/img/default-thumbnail.png"
                                         class="card-img-top bg-light p-1 border"
                                         alt="Default Thumbnail"
                                         style="height: 200px; object-fit: contain;">
@@ -70,7 +75,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                     <hr>
-                                    <p class="card-text text-justify">
+                                    <p class="card-text">
                                         <?= $p['caption_pelatihan'] > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']; ?>
                                     </p>
 
@@ -79,7 +84,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                         <p class="card-text">
                                             <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                         </p>
-                                        <a href="<?= base_url('pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
+                                        <a href="<?= base_url('pegawai/pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
@@ -88,6 +93,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             </div>
         </div>
+
     </div>
     <div class="mt-4">
         <?php if ($isLoggedIn && $user_id): ?>

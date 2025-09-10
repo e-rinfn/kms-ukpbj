@@ -81,7 +81,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                             <p class="card-text">
                                                 <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                             </p>
-                                            <a href="<?= base_url('pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
+                                            <a href="<?= base_url('users/pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
                                         </div>
                                     </div>
                                 </div>
