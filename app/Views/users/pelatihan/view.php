@@ -44,10 +44,10 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             </div>
 
-            <div class="col-md-4 mb-3 ms-3 border bg-light rounded p-2">
+            <div class="col-md-4 mb-3 border bg-light rounded p-2">
                 <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
                 <hr>
-                <div class="p-3" style="height: 800px; overflow-y: auto;">
+                <div class="p-3" style="height: 1000px; overflow-y: auto;">
                     <div class="row g-4">
                         <?php foreach ($pelatihan_lain as $p): ?>
                             <div class="col-12">
@@ -149,13 +149,74 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 </div>
             <?php endif; ?>
         </div>
+
         <script>
-            function confirmDelete(event) {
-                if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-                    event.preventDefault();
-                }
-            }
+            // Fungsi untuk tombol balas
+            document.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const commentId = this.dataset.commentId;
+                    const replyForm = document.getElementById('reply-form-' + commentId);
+
+                    // Sembunyikan semua form balas lainnya
+                    document.querySelectorAll('.reply-form').forEach(form => {
+                        if (form.id !== 'reply-form-' + commentId) {
+                            form.style.display = 'none';
+                        }
+                    });
+
+                    // Toggle form balas
+                    if (replyForm.style.display === 'none') {
+                        replyForm.style.display = 'block';
+                        // Scroll ke form
+                        replyForm.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    } else {
+                        replyForm.style.display = 'none';
+                    }
+                });
+            });
+
+            // Fungsi untuk tombol batal
+            document.querySelectorAll('.cancel-reply').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.reply-form').style.display = 'none';
+                });
+            });
+
+            // Auto close form balas ketika submit
+            document.querySelectorAll('.reply-form form').forEach(form => {
+                form.addEventListener('submit', function() {
+                    this.closest('.reply-form').style.display = 'none';
+                });
+            });
         </script>
+
+        <!-- Tambahkan SweetAlert2 (via CDN) -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function confirmDelete(event, form) {
+                event.preventDefault(); // hentikan submit default
+
+                Swal.fire({
+                    title: 'Yakin Hapus?',
+                    text: "Komentar ini akan dihapus permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // submit form jika user konfirmasi
+                    }
+                });
+            }
+        </script> -->
+
     </div>
 </div>
 <?= $this->endSection(); ?>

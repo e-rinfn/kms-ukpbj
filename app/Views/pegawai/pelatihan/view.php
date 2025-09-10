@@ -154,11 +154,46 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
             <?php endif; ?>
         </div>
         <script>
-            function confirmDelete(event) {
-                if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-                    event.preventDefault();
-                }
-            }
+            // Fungsi untuk tombol balas
+            document.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const commentId = this.dataset.commentId;
+                    const replyForm = document.getElementById('reply-form-' + commentId);
+
+                    // Sembunyikan semua form balas lainnya
+                    document.querySelectorAll('.reply-form').forEach(form => {
+                        if (form.id !== 'reply-form-' + commentId) {
+                            form.style.display = 'none';
+                        }
+                    });
+
+                    // Toggle form balas
+                    if (replyForm.style.display === 'none') {
+                        replyForm.style.display = 'block';
+                        // Scroll ke form
+                        replyForm.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+                    } else {
+                        replyForm.style.display = 'none';
+                    }
+                });
+            });
+
+            // Fungsi untuk tombol batal
+            document.querySelectorAll('.cancel-reply').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.reply-form').style.display = 'none';
+                });
+            });
+
+            // Auto close form balas ketika submit
+            document.querySelectorAll('.reply-form form').forEach(form => {
+                form.addEventListener('submit', function() {
+                    this.closest('.reply-form').style.display = 'none';
+                });
+            });
         </script>
     </div>
 </div>

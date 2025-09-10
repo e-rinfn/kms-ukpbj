@@ -316,7 +316,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
         </script>
 
         <!-- Tambahkan SweetAlert2 (via CDN) -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
             function confirmDelete(event, form) {
@@ -337,7 +337,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                     }
                 });
             }
-        </script>
+        </script> -->
 
     </div>
 </div>

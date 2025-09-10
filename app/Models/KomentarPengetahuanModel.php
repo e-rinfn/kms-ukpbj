@@ -30,6 +30,11 @@ class KomentarPengetahuanModel extends Model
             ->findAll();
     }
 
+    public function addKomentar($data)
+    {
+        return $this->insert($data);
+    }
+
     public function canDelete($comment_id, $user_id)
     {
         $comment = $this->find($comment_id);
@@ -38,15 +43,5 @@ class KomentarPengetahuanModel extends Model
         if (session()->get('level') === 'admin') return true;
 
         return $comment['user_id'] == $user_id;
-    }
-
-    public function addReply($data)
-    {
-        return $this->insert($data);
-    }
-
-    public function addKomentar($data)
-    {
-        return $this->insert($data);
     }
 }

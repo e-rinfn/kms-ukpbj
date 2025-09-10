@@ -1,6 +1,6 @@
 <!-- app/Views/komentar_card.php -->
 <?php
-$komentarModel = new \App\Models\KomentarPengetahuanModel();
+$komentarModel = new \App\Models\KomentarPelatihanModel();
 $balasan = $komentarModel->getBalasanByParent($k['id']);
 $canDelete = false;
 if ($isLoggedIn) {
@@ -30,11 +30,10 @@ if ($isLoggedIn) {
             <?php endif; ?>
 
             <?php if ($canDelete): ?>
-                <form action="<?= base_url('pengetahuan/delete-comment/' . $k['id']) ?>" method="POST">
+                <form action="<?= base_url('pelatihan/delete-comment/' . $k['id']) ?>" method="POST">
                     <?= csrf_field() ?>
-                    <button type="submit" class="btn btn-sm btn-danger"
-                        onclick="return confirm('Apakah Anda yakin ingin menghapus komentar ini?')">
-                        <i class="bi bi-trash"></i> Hapus
+                    <button type="button" class="btn btn-sm btn-danger btn-delete" data-id="<?= $k['id']; ?>">
+                        Hapus
                     </button>
                 </form>
             <?php endif; ?>
@@ -43,26 +42,55 @@ if ($isLoggedIn) {
         <!-- Form Balas Komentar (Hidden) -->
         <?php if ($isLoggedIn && $user_id && $k['level'] < 2): ?>
             <div class="reply-form mt-3" id="reply-form-<?= $k['id'] ?>" style="display: none;">
-                <form action="<?= base_url('pengetahuan/comment/' . $pengetahuan['id']) ?>" method="POST">
+                <form action="<?= base_url('pelatihan/comment/' . $pelatihan['id']) ?>" method="POST">
                     <?= csrf_field() ?>
                     <!-- id artikel -->
-                    <input type="hidden" name="pengetahuan_id" value="<?= $pengetahuan['id'] ?>">
+                    <input type="hidden" name="pelatihan_id" value="<?= $pelatihan['id'] ?>">
                     <!-- id komentar induk -->
-                    <input name="parent_id" value="<?= $k['id'] ?>">
+                    <input type="hidden" name="parent_id" value="<?= $k['id'] ?>">
                     <!-- id user (bisa dari session login) -->
                     <input type="hidden" name="user_id" value="<?= $user_id ?>">
 
-                    <textarea name="komentar" placeholder="Balas untuk <?= $k['user_nama'] ?>" required></textarea>
+                    <!-- <textarea name="komentar" placeholder="Balas untuk <?= $k['user_nama'] ?>" required></textarea> -->
+                    <textarea name="komentar" id="komentar" rows="10" class="form-control" placeholder="Tulis komentar di sini..."></textarea>
+
                     <br>
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-sm btn-primary">Kirim Balasan</button>
                         <button type="button" class="btn btn-sm btn-secondary cancel-reply">Batal</button>
                     </div>
                 </form>
-
-
             </div>
         <?php endif; ?>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const deleteButtons = document.querySelectorAll(".btn-delete");
+
+                deleteButtons.forEach(button => {
+                    button.addEventListener("click", function() {
+                        const form = this.closest("form");
+
+                        Swal.fire({
+                            title: "Yakin ingin menghapus komentar ini?",
+                            text: "Data yang sudah dihapus tidak bisa dikembalikan!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#d33",
+                            cancelButtonColor: "#6c757d",
+                            confirmButtonText: "Ya, hapus!",
+                            cancelButtonText: "Batal"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+
 
         <!-- Tampilkan Balasan -->
         <?php if (!empty($balasan)): ?>
