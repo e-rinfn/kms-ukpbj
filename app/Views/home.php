@@ -133,7 +133,7 @@
                                 <h5 class="card-title fw-bold"><?= esc($p['judul']); ?></h5>
                                 <hr>
                                 <p class="card-text" style="text-align: justify;">
-                                    <?= esc(strlen($p['caption_pengetahuan']) > 200 ? substr($p['caption_pengetahuan'], 0, 200) . '...' : $p['caption_pengetahuan']); ?>
+                                    <?= mb_strimwidth(strip_tags($p['caption_pengetahuan']), 0, 200, '...'); ?>
                                 </p>
                                 <!-- Spacer untuk mendorong tombol ke bawah -->
                                 <div class="mt-auto">
@@ -211,7 +211,7 @@
                                 <h5 class="card-title fw-bold"><?= esc($p['judul']); ?></h5>
                                 <hr>
                                 <p class="card-text" style="text-align: justify;">
-                                    <?= esc(strlen($p['caption_pelatihan']) > 200 ? substr($p['caption_pelatihan'], 0, 200) . '...' : $p['caption_pelatihan']); ?>
+                                    <?= mb_strimwidth(strip_tags($p['caption_pelatihan']), 0, 200, '...'); ?>
                                 </p>
                                 <!-- Spacer untuk mendorong tombol ke bawah -->
                                 <div class="mt-auto">
