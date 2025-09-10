@@ -194,8 +194,8 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                         <div class="card-body d-flex flex-column">
                                             <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                             <hr>
-                                            <p class="card-text text-justify">
-                                                <?= esc(strlen($p['caption_pengetahuan']) > 150 ? substr($p['caption_pengetahuan'], 0, 150) . '...' : $p['caption_pengetahuan']); ?>
+                                            <p class="card-text">
+                                                <?= $p['caption_pengetahuan'] > 150 ? substr($p['caption_pengetahuan'], 0, 150) . '...' : $p['caption_pengetahuan']; ?>
                                             </p>
 
                                             <div class="mt-auto">

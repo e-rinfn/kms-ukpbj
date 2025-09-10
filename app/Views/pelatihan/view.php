@@ -75,8 +75,8 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title"><?= esc($p['judul']); ?></h5>
                                     <hr>
-                                    <p class="card-text">
-                                        <?= $p['caption_pelatihan'] > 150 ? substr($p['caption_pelatihan'], 0, 150) . '...' : $p['caption_pelatihan']; ?>
+                                    <p class="card-text" style="text-align: justify;">
+                                        <?= mb_strimwidth(strip_tags($p['caption_pelatihan']), 0, 200, '...'); ?>
                                     </p>
 
                                     <div class="mt-auto">
@@ -84,7 +84,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                         <p class="card-text">
                                             <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                         </p>
-                                        <a href="<?= base_url('pegawai/pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
+                                        <a href="<?= base_url('pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>

@@ -169,7 +169,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 <div class="col-md-4 mb-3">
                     <h5 class="text-center mt-1 fw-bold">DAFTAR PENGETAHUAN</h5>
                     <hr>
-                    <div class="border bg-light rounded p-3" style="height: 800px; overflow-y: auto;">
+                    <div class="border bg-light rounded p-3" style="height: 1000px; overflow-y: auto;">
                         <div class="row g-4">
                             <?php foreach ($pengetahuan_lain as $p): ?>
                                 <div class="col-12">
@@ -198,7 +198,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                                 <p class="card-text">
                                                     <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                                 </p>
-                                                <a href="<?= base_url('pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
+                                                <a href="<?= base_url('users/pengetahuan/view/' . $p['id']); ?>" style="background-color: #341EBB; border: none;" class="btn btn-primary rounded-pill w-100">Lihat Detail</a>
                                             </div>
                                         </div>
                                     </div>

@@ -49,11 +49,6 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                 <p><strong>Diupdate pada:</strong> <?= tanggal_indo($pelatihan['updated_at']); ?></p>
 
             </div>
-
-
-
-
-
             <div class="col-md-4 mb-3 border bg-light rounded p-2">
                 <h5 class="text-center mt-1">DAFTAR PELATIHAN</h5>
                 <hr>
@@ -91,7 +86,7 @@ $user_id = session()->get('id'); // Sesuai dengan 'id' yang diset di session
                                             <p class="card-text">
                                                 <small class="text-muted"><?= date('d M Y', strtotime($p['created_at'])); ?></small>
                                             </p>
-                                            <a href="<?= base_url('pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
+                                            <a href="<?= base_url('pegawai/pelatihan/view/' . $p['id']); ?>" class="btn btn-sm btn-primary w-100">Lihat Detail</a>
                                         </div>
                                     </div>
                                 </div>
