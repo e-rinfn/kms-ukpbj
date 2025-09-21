@@ -166,8 +166,8 @@
             userInput.value = '';
 
             // Kirim pesan ke backend Flask
-            // fetch('http://localhost:5000/predict', {
-            fetch('https://chat-kms.erinfn.my.id/predict', {
+            fetch('http://localhost:5000/predict', {
+                    // fetch('https://chat-kms.erinfn.my.id/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

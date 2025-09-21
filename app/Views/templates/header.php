@@ -15,6 +15,9 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docx-preview@0.5.6/dist/docx-preview.css">
+    <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.5.6/dist/docx-preview.min.js"></script>
+
 
     <style>
         body {
@@ -95,6 +98,9 @@
                         <a class="nav-link <?= uri_string() === 'admin/pelatihan' ? 'nav-link active' : '' ?>" href="/admin/pelatihan">PELATIHAN</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'admin/template' ? 'nav-link active' : '' ?>" href="/admin/template">TEMPLATE</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'admin/pengajuan' ? 'nav-link active' : '' ?>" href="/admin/pengajuan">PENGAJUAN</a>
                     </li>
                     <li class="nav-item">
@@ -109,6 +115,9 @@
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'pegawai/pelatihan' ? 'nav-link active' : '' ?>" href="/pegawai/pelatihan">PELATIHAN</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'pegawai/template' ? 'nav-link active' : '' ?>" href="/pegawai/template">TEMPLATE</a>
+                    </li>
 
                 <?php elseif (session()->get('level') === 'user') : ?>
                     <!-- Menu untuk User -->
@@ -117,6 +126,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">PELATIHAN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'users/pelatihan' ? 'nav-link active' : '' ?>" href="/users/pelatihan">PELATIHAN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= uri_string() === 'users/template' ? 'nav-link active' : '' ?>" href="/users/template">TEMPLATE</a>
                     </li>
 
                 <?php else : ?>

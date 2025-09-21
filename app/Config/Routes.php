@@ -84,6 +84,16 @@ $routes->group('admin', ['filter' => 'level:admin'], function ($routes) {
         $routes->delete('delete/(:num)', 'Admin\Pengetahuan::delete/$1');
         $routes->get('view/(:num)', 'Admin\Pengetahuan::view/$1');
     });
+
+    $routes->group('template', function ($routes) {
+        $routes->get('/', 'Admin\Template::index');
+        $routes->get('create', 'Admin\Template::create');
+        $routes->post('save', 'Admin\Template::save');
+        $routes->get('edit/(:num)', 'Admin\Template::edit/$1');
+        $routes->put('update/(:num)', 'Admin\Template::update/$1');
+        $routes->delete('delete/(:num)', 'Admin\Template::delete/$1');
+        $routes->get('view/(:num)', 'Admin\Template::view/$1');
+    });
 });
 
 // Pegawai routes - hanya bisa diakses oleh pegawai
@@ -109,6 +119,16 @@ $routes->group('pegawai', ['filter' => 'level:pegawai'], function ($routes) {
         $routes->delete('delete/(:num)', 'Pegawai\Pengetahuan::delete/$1');
         $routes->get('view/(:num)', 'Pegawai\Pengetahuan::view/$1');
     });
+
+    $routes->group('template', function ($routes) {
+        $routes->get('/', 'Pegawai\Template::index');
+        $routes->get('create', 'Pegawai\Template::create');
+        $routes->post('save', 'Pegawai\Template::save');
+        $routes->get('edit/(:num)', 'Pegawai\Template::edit/$1');
+        $routes->put('update/(:num)', 'Pegawai\Template::update/$1');
+        $routes->delete('delete/(:num)', 'Pegawai\Template::delete/$1');
+        $routes->get('view/(:num)', 'Pegawai\Template::view/$1');
+    });
 });
 
 // User routes - hanya bisa diakses oleh user biasa
@@ -133,6 +153,16 @@ $routes->group('users', ['filter' => 'level:user'], function ($routes) {
         $routes->put('update/(:num)', 'Users\Pengetahuan::update/$1');
         $routes->delete('delete/(:num)', 'Users\Pengetahuan::delete/$1');
         $routes->get('view/(:num)', 'Users\Pengetahuan::view/$1');
+    });
+
+    $routes->group('template', function ($routes) {
+        $routes->get('/', 'Users\Template::index');
+        $routes->get('create', 'Users\Template::create');
+        $routes->post('save', 'Users\Template::save');
+        $routes->get('edit/(:num)', 'Users\Template::edit/$1');
+        $routes->put('update/(:num)', 'Users\Template::update/$1');
+        $routes->delete('delete/(:num)', 'Users\Template::delete/$1');
+        $routes->get('view/(:num)', 'Users\Template::view/$1');
     });
 });
 
