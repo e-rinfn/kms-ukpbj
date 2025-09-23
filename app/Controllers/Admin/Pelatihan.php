@@ -64,8 +64,44 @@ class Pelatihan extends BaseController
         return view('admin/pelatihan/create', $data);
     }
 
+    // public function save()
+    // {
+    //     if (!$this->validate([
+    //         'judul' => 'required',
+    //         'video' => [
+    //             'rules' => 'uploaded[video]|max_size[video,512000]|ext_in[video,mp4,mov,avi]',
+    //             'errors' => [
+    //                 'uploaded' => 'Pilih video terlebih dahulu',
+    //                 'max_size' => 'Ukuran video maksimal 500MB',
+    //                 'ext_in' => 'Format video harus mp4, mov, atau avi'
+    //             ]
+    //         ]
+    //     ])) {
+    //         return redirect()->to('/admin/pelatihan/create')->withInput();
+    //     }
+
+    //     // Upload video
+    //     $video = $this->request->getFile('video');
+    //     $namaVideo = $video->getRandomName();
+    //     $video->move('assets/uploads/pelatihan', $namaVideo);
+
+    //     $this->pelatihanModel->save([
+    //         'judul' => $this->request->getVar('judul'),
+    //         'video_pelatihan' => $namaVideo,
+    //         'caption_pelatihan' => $this->request->getVar('caption'),
+    //         'akses_publik' => $this->request->getVar('akses_publik') ? 1 : 0,
+    //         'user_id' => session()->get('id')
+    //     ]);
+
+    //     session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+    //     return redirect()->to('/admin/pelatihan');
+    // }
+
     public function save()
     {
+        // Cek jika request adalah AJAX
+        $isAjax = $this->request->isAJAX();
+
         if (!$this->validate([
             'judul' => 'required',
             'video' => [
@@ -77,24 +113,50 @@ class Pelatihan extends BaseController
                 ]
             ]
         ])) {
+            if ($isAjax) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Validasi gagal',
+                    'errors' => $this->validator->getErrors()
+                ]);
+            }
             return redirect()->to('/admin/pelatihan/create')->withInput();
         }
 
-        // Upload video
-        $video = $this->request->getFile('video');
-        $namaVideo = $video->getRandomName();
-        $video->move('assets/uploads/pelatihan', $namaVideo);
+        try {
+            // Upload video
+            $video = $this->request->getFile('video');
+            $namaVideo = $video->getRandomName();
+            $video->move('assets/uploads/pelatihan', $namaVideo);
 
-        $this->pelatihanModel->save([
-            'judul' => $this->request->getVar('judul'),
-            'video_pelatihan' => $namaVideo,
-            'caption_pelatihan' => $this->request->getVar('caption'),
-            'akses_publik' => $this->request->getVar('akses_publik') ? 1 : 0,
-            'user_id' => session()->get('id')
-        ]);
+            $this->pelatihanModel->save([
+                'judul' => $this->request->getVar('judul'),
+                'video_pelatihan' => $namaVideo,
+                'caption_pelatihan' => $this->request->getVar('caption'),
+                'akses_publik' => $this->request->getVar('akses_publik') ? 1 : 0,
+                'user_id' => session()->get('id')
+            ]);
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
-        return redirect()->to('/admin/pelatihan');
+            if ($isAjax) {
+                return $this->response->setJSON([
+                    'status' => 'success',
+                    'message' => 'Data berhasil ditambahkan.'
+                ]);
+            }
+
+            session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+            return redirect()->to('/admin/pelatihan');
+        } catch (\Exception $e) {
+            if ($isAjax) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+                ]);
+            }
+
+            session()->setFlashdata('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->to('/admin/pelatihan/create')->withInput();
+        }
     }
 
     public function edit($id)

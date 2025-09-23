@@ -98,8 +98,8 @@
         videoInput.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
-                const fileSizeMB = file.size / (512000 * 512000);
-                if (fileSizeMB > 500) {
+                const fileSizeMB = file.size / (1024 * 1024);
+                if (fileSizeMB > 500) { // Sesuaikan dengan max_size di controller (500MB)
                     alert('Ukuran file terlalu besar. Maksimal 500MB.');
                     this.value = ''; // Reset input file
                 }
@@ -116,6 +116,7 @@
             // Tampilkan progress bar
             progressContainer.style.display = 'block';
             progressBar.style.width = '0%';
+            progressBar.className = 'progress-bar progress-bar-striped progress-bar-animated bg-primary';
             progressPercentage.textContent = '0%';
             uploadStatus.textContent = 'Mempersiapkan upload...';
             submitButton.disabled = true;
@@ -133,6 +134,8 @@
 
                     if (percentComplete < 100) {
                         uploadStatus.textContent = 'Mengupload video... ' + roundedPercent + '%';
+                    } else {
+                        uploadStatus.textContent = 'Menyimpan data...';
                     }
                 }
             });
@@ -140,36 +143,65 @@
             // Handle response setelah upload selesai
             xhr.addEventListener('load', function() {
                 if (xhr.status === 200) {
-                    // Upload berhasil
-                    progressBar.classList.remove('progress-bar-animated');
-                    progressBar.classList.add('bg-success');
-                    uploadStatus.textContent = 'Upload berhasil! Mengarahkan...';
+                    try {
+                        const response = JSON.parse(xhr.responseText);
 
-                    // Redirect atau refresh halaman setelah beberapa detik
-                    setTimeout(function() {
-                        window.location.href = '/admin/pelatihan';
-                    }, 1500);
+                        if (response.status === 'success') {
+                            // Upload berhasil
+                            progressBar.classList.remove('progress-bar-animated', 'bg-primary');
+                            progressBar.classList.add('bg-success');
+                            uploadStatus.innerHTML = '<span class="text-success">' + response.message + '</span>';
+
+                            // Redirect setelah 2 detik
+                            setTimeout(function() {
+                                window.location.href = '/admin/pelatihan';
+                            }, 2000);
+                        } else {
+                            // Upload gagal karena validasi
+                            progressBar.classList.remove('progress-bar-animated', 'bg-primary');
+                            progressBar.classList.add('bg-danger');
+
+                            let errorMessage = response.message;
+                            if (response.errors) {
+                                errorMessage += '<br>' + Object.values(response.errors).join('<br>');
+                            }
+
+                            uploadStatus.innerHTML = '<span class="text-danger">' + errorMessage + '</span>';
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Simpan';
+                        }
+                    } catch (e) {
+                        // Jika response bukan JSON (fallback untuk non-AJAX)
+                        progressBar.classList.remove('progress-bar-animated', 'bg-primary');
+                        progressBar.classList.add('bg-success');
+                        uploadStatus.innerHTML = '<span class="text-success">Upload berhasil! Mengarahkan...</span>';
+
+                        setTimeout(function() {
+                            window.location.href = '/admin/pelatihan';
+                        }, 2000);
+                    }
                 } else {
-                    // Upload gagal
+                    // HTTP error
                     progressBar.classList.remove('progress-bar-animated', 'bg-primary');
                     progressBar.classList.add('bg-danger');
-                    uploadStatus.innerHTML = '<span class="text-danger">Upload gagal: ' + xhr.statusText + '</span>';
+                    uploadStatus.innerHTML = '<span class="text-danger">Error: ' + xhr.status + ' - ' + xhr.statusText + '</span>';
                     submitButton.disabled = false;
                     submitButton.textContent = 'Simpan';
                 }
             });
 
-            // Handle error
+            // Handle error network
             xhr.addEventListener('error', function() {
                 progressBar.classList.remove('progress-bar-animated', 'bg-primary');
                 progressBar.classList.add('bg-danger');
-                uploadStatus.innerHTML = '<span class="text-danger">Terjadi kesalahan saat upload.</span>';
+                uploadStatus.innerHTML = '<span class="text-danger">Terjadi kesalahan jaringan saat upload.</span>';
                 submitButton.disabled = false;
                 submitButton.textContent = 'Simpan';
             });
 
             // Kirim request
             xhr.open('POST', this.action, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Header untuk identifikasi AJAX
             xhr.send(formData);
         });
     });
