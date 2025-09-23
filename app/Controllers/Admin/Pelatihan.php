@@ -69,10 +69,10 @@ class Pelatihan extends BaseController
         if (!$this->validate([
             'judul' => 'required',
             'video' => [
-                'rules' => 'uploaded[video]|max_size[video,10240]|ext_in[video,mp4,mov,avi]',
+                'rules' => 'uploaded[video]|max_size[video,512000]|ext_in[video,mp4,mov,avi]',
                 'errors' => [
                     'uploaded' => 'Pilih video terlebih dahulu',
-                    'max_size' => 'Ukuran video maksimal 10MB',
+                    'max_size' => 'Ukuran video maksimal 500MB',
                     'ext_in' => 'Format video harus mp4, mov, atau avi'
                 ]
             ]
@@ -166,10 +166,10 @@ class Pelatihan extends BaseController
 
         if ($this->request->getFile('video')->getError() != 4) {
             $rules['video'] = [
-                'rules' => 'uploaded[video]|max_size[video,1024000]|ext_in[video,mp4,mov,avi]',
+                'rules' => 'uploaded[video]|max_size[video,512000]|ext_in[video,mp4,mov,avi]',
                 'errors' => [
                     'uploaded' => 'Pilih video terlebih dahulu',
-                    'max_size' => 'Ukuran video maksimal 1GB',
+                    'max_size' => 'Ukuran video maksimal 500MB',
                     'ext_in' => 'Format video harus mp4, mov, atau avi'
                 ]
             ];
